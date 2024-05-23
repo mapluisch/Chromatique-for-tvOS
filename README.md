@@ -16,9 +16,9 @@
 ## Overview
 
 <p align="center">
-  <img src="https://github.com/mapluisch/Chromatique-for-tvOS/assets/31780571/d1904a53-f321-4c34-8def-4e7a64824a38" alt="Chromatique Screenshot 1" style="width: 33%; margin-right: 10px;">
-  <img src="https://github.com/mapluisch/Chromatique-for-tvOS/assets/31780571/88162c38-1ea9-4ed0-8650-23c03451858e" alt="Chromatique Screenshot 2" style="width: 33%; margin-right: 10px;">
-  <img src="https://github.com/mapluisch/Chromatique-for-tvOS/assets/31780571/fffb80f2-4a44-48fb-8ce7-30d7ed6b2b05" alt="Chromatique Screenshot 3" style="width: 33%; margin-right: 10px;">
+  <img src="https://github.com/mapluisch/Chromatique-for-tvOS/assets/31780571/d1904a53-f321-4c34-8def-4e7a64824a38" alt="Chromatique Screenshot 1" style="width: 30%; margin-right: 10px;">
+  <img src="https://github.com/mapluisch/Chromatique-for-tvOS/assets/31780571/88162c38-1ea9-4ed0-8650-23c03451858e" alt="Chromatique Screenshot 2" style="width: 30%; margin-right: 10px;">
+  <img src="https://github.com/mapluisch/Chromatique-for-tvOS/assets/31780571/fffb80f2-4a44-48fb-8ce7-30d7ed6b2b05" alt="Chromatique Screenshot 3" style="width: 30%; margin-right: 10px;">
 </p>
 
 Chromatique is a free and super simple tvOS app that allows you to "save" your OLED screen by displaying a pitch black image, show a color of your liking, or display a nice gradient animation, all while optionally providing "Now Playing" metadata / music info. Perfect for running in the background on your TV.
