@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC3AA0012C0095040081DFBE /* TutorialOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3AA0002C0095040081DFBE /* TutorialOverlay.swift */; };
 		EC445EDD2BFA4F2A00D7BAEE /* ChromatiqueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC445EDC2BFA4F2A00D7BAEE /* ChromatiqueApp.swift */; };
 		EC445EDF2BFA4F2A00D7BAEE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC445EDE2BFA4F2A00D7BAEE /* ContentView.swift */; };
 		EC445EE12BFA4F2B00D7BAEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC445EE02BFA4F2B00D7BAEE /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EC3AA0002C0095040081DFBE /* TutorialOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialOverlay.swift; sourceTree = "<group>"; };
 		EC445ED92BFA4F2A00D7BAEE /* Chromatique.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chromatique.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC445EDC2BFA4F2A00D7BAEE /* ChromatiqueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromatiqueApp.swift; sourceTree = "<group>"; };
 		EC445EDE2BFA4F2A00D7BAEE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				EC445EEA2BFB613500D7BAEE /* GradientView.swift */,
 				EC76C8C02BFFC0BB00E052B5 /* MediaInfoView.swift */,
 				EC76C8C22BFFC0D700E052B5 /* Helper.swift */,
+				EC3AA0002C0095040081DFBE /* TutorialOverlay.swift */,
 			);
 			path = Chromatique;
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC3AA0012C0095040081DFBE /* TutorialOverlay.swift in Sources */,
 				EC445EDF2BFA4F2A00D7BAEE /* ContentView.swift in Sources */,
 				EC76C8C32BFFC0D700E052B5 /* Helper.swift in Sources */,
 				EC76C8C12BFFC0BB00E052B5 /* MediaInfoView.swift in Sources */,
@@ -287,7 +291,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Chromatique/Chromatique.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Chromatique/Preview Content\"";
 				DEVELOPMENT_TEAM = 9VMK88D954;
 				ENABLE_PREVIEWS = YES;
@@ -318,7 +322,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Chromatique/Chromatique.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Chromatique/Preview Content\"";
 				DEVELOPMENT_TEAM = 9VMK88D954;
 				ENABLE_PREVIEWS = YES;

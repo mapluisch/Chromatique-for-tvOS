@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Chromatique
-//
-//  Created by Martin Pluisch on 20.05.24.
-//
-
 import SwiftUI
 import MediaPlayer
 import Combine
@@ -14,13 +7,15 @@ struct ContentView: View {
     private let gradientKey = "isGradientViewActive"
     private let mediaInfoKey = "showMediaInfo"
     private let selectedColorKey = "selectedColorIndex"
+    private let firstTimeKey = "isFirstTime"
 
     @State private var selectedColor: Color = .black
     @State private var isMenuOpen: Bool = false
     @State private var isGradientViewActive: Bool = false
     @State private var showMediaInfo: Bool = false
+    @State private var showTutorial: Bool = false
+    @State private var transitionInProgress: Bool = false
     @FocusState private var focusedCircleIndex: Int?
-
     @State private var nowPlayingItem: MPMediaItem?
     @State private var timer: Timer?
 
@@ -66,10 +61,17 @@ struct ContentView: View {
                                     .stroke(showMediaInfo ? Color.white : Color.clear, lineWidth: 4)
                                     .animation(.easeInOut(duration: 0.2), value: showMediaInfo)
                             )
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.white, style: StrokeStyle(lineWidth: 4, dash: [3]))
+                                    .opacity(focusedCircleIndex == -1 ? 1 : 0)
+                                    .animation(.easeInOut(duration: 0.2), value: focusedCircleIndex == -1)
+                            )
                             .focusable()
                             .focused($focusedCircleIndex, equals: -1)
                             .scaleEffect(focusedCircleIndex == -1 ? 1.2 : 1.0)
                             .onTapGesture {
+                                guard !transitionInProgress else { return }
                                 withAnimation {
                                     showMediaInfo.toggle()
                                     saveMediaInfoState()
@@ -89,18 +91,20 @@ struct ContentView: View {
                                     Circle()
                                         .stroke(Color.white, style: StrokeStyle(lineWidth: 4, dash: [3]))
                                         .opacity(focusedCircleIndex == index && selectedColor != colors[index] ? 1 : 0)
-                                        .animation(.easeInOut(duration: 0.0), value: focusedCircleIndex == index)
+                                        .animation(.easeInOut(duration: 0.2), value: focusedCircleIndex == index)
                                 )
                                 .scaleEffect(focusedCircleIndex == index ? 1.2 : 1.0)
                                 .focusable()
                                 .focused($focusedCircleIndex, equals: index)
                                 .onTapGesture {
+                                    guard !transitionInProgress else { return }
                                     withAnimation {
                                         selectedColor = colors[index]
                                         isGradientViewActive = false
                                         isMenuOpen = false
                                         saveSelectedColorState(index: index)
                                         saveGradientViewState(isActive: false)
+                                        endTransition(after: 0.5)
                                     }
                                 }
                         }
@@ -124,16 +128,18 @@ struct ContentView: View {
                                 Circle()
                                     .stroke(Color.white, style: StrokeStyle(lineWidth: 4, dash: [3]))
                                     .opacity(focusedCircleIndex == colors.count ? 1 : 0)
-                                    .animation(.easeInOut(duration: 0.0), value: focusedCircleIndex == colors.count)
+                                    .animation(.easeInOut(duration: 0.2), value: focusedCircleIndex == colors.count)
                             )
                             .scaleEffect(focusedCircleIndex == colors.count ? 1.2 : 1.0)
                             .focusable()
                             .focused($focusedCircleIndex, equals: colors.count)
                             .onTapGesture {
+                                guard !transitionInProgress else { return }
                                 withAnimation {
                                     isGradientViewActive = true
                                     isMenuOpen = false
                                     saveGradientViewState(isActive: true)
+                                    endTransition(after: 0.5)
                                 }
                             }
                     }
@@ -146,6 +152,11 @@ struct ContentView: View {
                 Spacer()
             }
             .zIndex(3)
+
+            if showTutorial {
+                TutorialOverlay(showTutorial: $showTutorial)
+                    .zIndex(4)
+            }
         }
         .onAppear {
             loadSavedState()
@@ -153,6 +164,10 @@ struct ContentView: View {
             startObservingNowPlayingItem()
             if isMenuOpen {
                 focusedCircleIndex = isGradientViewActive ? colors.count : (colors.firstIndex(of: selectedColor) ?? nil)
+            }
+            if UserDefaults.standard.bool(forKey: firstTimeKey) == false {
+                showTutorial = true
+                UserDefaults.standard.set(true, forKey: firstTimeKey)
             }
         }
         .onDisappear {
@@ -162,18 +177,41 @@ struct ContentView: View {
         .onChange(of: isMenuOpen) { oldIsOpen, newIsOpen in
             if newIsOpen {
                 focusedCircleIndex = isGradientViewActive ? colors.count : (colors.firstIndex(of: selectedColor) ?? nil)
-            } else {
-                focusedCircleIndex = nil
             }
         }
         .pressable { event in
+            guard !transitionInProgress else { return }
             if event == .select {
+                startTransition()
                 withAnimation {
                     isMenuOpen.toggle()
+                    focusedCircleIndex = nil
                 }
+                endTransition(after: 0.5)
+            }
+        }
+        .onMoveCommand { direction in
+            guard !transitionInProgress else { return }
+            withAnimation {
+                isMenuOpen = true
+                focusedCircleIndex = isGradientViewActive ? colors.count : (colors.firstIndex(of: selectedColor) ?? nil)
             }
         }
         .disableIdleTimer()
+    }
+
+    func startTransition() {
+        transitionInProgress = true
+    }
+
+    func endTransition(after delay: Double? = nil) {
+        if let delay = delay {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                transitionInProgress = false
+            }
+        } else {
+            transitionInProgress = false
+        }
     }
 
     func saveSelectedColorState(index: Int) {
@@ -238,4 +276,3 @@ struct ContentView: View {
         MPMusicPlayerController.systemMusicPlayer.endGeneratingPlaybackNotifications()
     }
 }
-

@@ -16,7 +16,7 @@ struct GradientView: View {
     @State private var colors1: [Color] = []
     @State private var colors2: [Color] = []
     @State private var colors3: [Color] = []
-    let duration: Double = 15
+    let duration: Double = 20
 
     private let baseColors: [Color] = [.red, .orange, .yellow, .green, .blue, .purple]
 
@@ -61,7 +61,7 @@ struct GradientView: View {
     private func animateGradient1() {
         guard isAnimating else { return }
 
-        withAnimation(Animation.linear(duration: duration).repeatForever(autoreverses: true)) {
+        withAnimation(Animation.easeInOut(duration: duration).repeatForever(autoreverses: true)) {
             gradientCenter1 = randomUnitPoint()
         }
 
@@ -75,7 +75,7 @@ struct GradientView: View {
     private func animateGradient2() {
         guard isAnimating else { return }
 
-        withAnimation(Animation.linear(duration: duration).repeatForever(autoreverses: true)) {
+        withAnimation(Animation.easeInOut(duration: duration).repeatForever(autoreverses: true)) {
             gradientCenter2 = randomUnitPoint()
         }
 
@@ -89,7 +89,7 @@ struct GradientView: View {
     private func animateGradient3() {
         guard isAnimating else { return }
 
-        withAnimation(Animation.linear(duration: duration).repeatForever(autoreverses: true)) {
+        withAnimation(Animation.easeInOut(duration: duration).repeatForever(autoreverses: true)) {
             gradientCenter3 = randomUnitPoint()
         }
 
@@ -113,8 +113,8 @@ struct GradientView: View {
     }
 
     private func startColorReset() {
-        Timer.scheduledTimer(withTimeInterval: duration * 10, repeats: true) { _ in
-            withAnimation {
+        Timer.scheduledTimer(withTimeInterval: duration, repeats: true) { _ in
+            withAnimation(Animation.easeInOut(duration: duration*0.7)) {
                 self.initializeColors()
             }
         }
